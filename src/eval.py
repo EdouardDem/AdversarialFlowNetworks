@@ -87,7 +87,8 @@ def ttt_optimal_percent(agent: Agent):
         num_optimal = 0
 
         states, masks, optimal_actions = torch.load(
-            f"data/ttt_optimal_moves_{player}.pt"
+            f"data/ttt_optimal_moves_{player}.pt",
+            weights_only=False,
         )
         states, masks = states.to(DEVICE), masks.to(DEVICE).float()
         with torch.no_grad():
@@ -114,7 +115,7 @@ def connect4_optimal_percent(agent: Agent):
 
     res = {"Optimal": 0, "Inaccuracy": 0, "Blunder": 0, "Losing move": 0}
 
-    vals = torch.load("data/state_vals.pt")
+    vals = torch.load("data/state_vals.pt", weights_only=False)
     for player in [0, 1]:
         curr_vals = vals[player]
         for batch in range(math.ceil(len(curr_vals) / BATCH_SIZE)):
