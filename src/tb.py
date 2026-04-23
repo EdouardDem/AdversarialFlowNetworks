@@ -106,10 +106,15 @@ def train(
         if step and step % cfg.eval_every == 0:
             print("-" * 10, " Eval ", "-" * 10)
             model.eval()
-            test_res = test_agent(env, model, UniformAgent())
-            test_res.update({"step": step})
-            print(test_res)
-            wandb.log(test_res) if wandb.run else None
+
+            try:
+                test_res = test_agent(env, model, UniformAgent())
+                test_res.update({"step": step})
+                print(test_res)
+                wandb.log(test_res) if wandb.run else None
+            except Exception as e:
+                print(f"Error during evaluation: {e}")    
+
             model.train()
 
             # Save the checkpoint
