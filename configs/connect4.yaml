@@ -25,7 +25,7 @@ wandb:
 
 # Needs about 19GB of VRAM during training
 training:
-  batch_size: 1024
+  batch_size: 256
   total_steps: 25_000
   eval_every: 500
 
