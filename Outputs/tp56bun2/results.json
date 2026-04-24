@@ -1,0 +1,250 @@
+[
+  {
+    "WINS ratio": 0.94,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.06,
+    "% Optimal Moves": 0.3792968690395355,
+    "step": 500,
+    "checkpoint": "ckpt-00000500.pt"
+  },
+  {
+    "WINS ratio": 0.92,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.08,
+    "% Optimal Moves": 0.39838868379592896,
+    "step": 1000,
+    "checkpoint": "ckpt-00001000.pt"
+  },
+  {
+    "WINS ratio": 0.9,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.1,
+    "% Optimal Moves": 0.40791016817092896,
+    "step": 1500,
+    "checkpoint": "ckpt-00001500.pt"
+  },
+  {
+    "WINS ratio": 0.9,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.1,
+    "% Optimal Moves": 0.48588868975639343,
+    "step": 2000,
+    "checkpoint": "ckpt-00002000.pt"
+  },
+  {
+    "WINS ratio": 0.97,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.03,
+    "% Optimal Moves": 0.5416015982627869,
+    "step": 2500,
+    "checkpoint": "ckpt-00002500.pt"
+  },
+  {
+    "WINS ratio": 0.995,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.005,
+    "% Optimal Moves": 0.613037109375,
+    "step": 3000,
+    "checkpoint": "ckpt-00003000.pt"
+  },
+  {
+    "WINS ratio": 0.995,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.005,
+    "% Optimal Moves": 0.6410156488418579,
+    "step": 3500,
+    "checkpoint": "ckpt-00003500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.688281238079071,
+    "step": 4000,
+    "checkpoint": "ckpt-00004000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.7261719107627869,
+    "step": 4500,
+    "checkpoint": "ckpt-00004500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.727734386920929,
+    "step": 5000,
+    "checkpoint": "ckpt-00005000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.7437500357627869,
+    "step": 5500,
+    "checkpoint": "ckpt-00005500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.760449230670929,
+    "step": 6000,
+    "checkpoint": "ckpt-00006000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.761767566204071,
+    "step": 6500,
+    "checkpoint": "ckpt-00006500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.7840820550918579,
+    "step": 7000,
+    "checkpoint": "ckpt-00007000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.7964844107627869,
+    "step": 7500,
+    "checkpoint": "ckpt-00007500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.790771484375,
+    "step": 8000,
+    "checkpoint": "ckpt-00008000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8116211295127869,
+    "step": 8500,
+    "checkpoint": "ckpt-00008500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.810351550579071,
+    "step": 9000,
+    "checkpoint": "ckpt-00009000.pt"
+  },
+  {
+    "WINS ratio": 0.995,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.005,
+    "% Optimal Moves": 0.820019543170929,
+    "step": 9500,
+    "checkpoint": "ckpt-00009500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.815722644329071,
+    "step": 10000,
+    "checkpoint": "ckpt-00010000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8228515982627869,
+    "step": 10500,
+    "checkpoint": "ckpt-00010500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.826464831829071,
+    "step": 11000,
+    "checkpoint": "ckpt-00011000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.827343761920929,
+    "step": 11500,
+    "checkpoint": "ckpt-00011500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8216797113418579,
+    "step": 12000,
+    "checkpoint": "ckpt-00012000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.829150378704071,
+    "step": 12500,
+    "checkpoint": "ckpt-00012500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8287109732627869,
+    "step": 13000,
+    "checkpoint": "ckpt-00013000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.828076183795929,
+    "step": 13500,
+    "checkpoint": "ckpt-00013500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.826708972454071,
+    "step": 14000,
+    "checkpoint": "ckpt-00014000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8348144888877869,
+    "step": 14500,
+    "checkpoint": "ckpt-00014500.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8330078125,
+    "step": 15000,
+    "checkpoint": "ckpt-00015000.pt"
+  },
+  {
+    "WINS ratio": 1.0,
+    "DRAWS ratio": 0.0,
+    "LOSSES ratio": 0.0,
+    "% Optimal Moves": 0.8387695550918579,
+    "step": 15500,
+    "checkpoint": "ckpt-00015500.pt"
+  }
+]
