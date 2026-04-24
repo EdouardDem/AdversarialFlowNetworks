@@ -37,4 +37,5 @@ training:
 
   # Checkpoint
   ckpt_dir: checkpoints-Connect4
+  save_optimizer_state: false
   resume_from: null  # e.g. checkpoints-Connect4/tp56bun2/ckpt-00015000.pt
