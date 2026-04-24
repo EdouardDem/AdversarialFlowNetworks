@@ -5,3 +5,4 @@ wandb
 omegaconf
 hydra-core
 python-dotenv
+matplotlib
