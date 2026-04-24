@@ -4,8 +4,6 @@ from torch import nn
 
 from src.envs.base_env import BaseEnv, Player
 
-DEVICE = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
-
 
 """ AlphaZero Architecture """
 
@@ -82,8 +80,11 @@ class AZResNet(nn.Module):
         res_filters=128,
         res_layers=10,
         head_filters=32,
+        device='auto',
     ):
         super(AZResNet, self).__init__()
+
+        self.device = self._resolve_device(device)
 
         self.conv = ConvBlock(state_dims[0] + 1, res_filters)
         self.res_layers = nn.Sequential(*[ResBlock(res_filters) for _ in range(res_layers)])
@@ -93,14 +94,20 @@ class AZResNet(nn.Module):
 
         self.policy_head_1 = PolicyBlock(np.prod(state_dims[1:]), action_dims, res_filters, head_filters)
         self.value_head_1 = ValueBlock(np.prod(state_dims[1:]), res_filters, head_filters)
-        self.log_Z_0 = torch.zeros(1, requires_grad=True, device=DEVICE)
-        self.log_Z_1 = torch.zeros(1, requires_grad=True, device=DEVICE)
+        self.log_Z_0 = torch.zeros(1, requires_grad=True, device=self.device)
+        self.log_Z_1 = torch.zeros(1, requires_grad=True, device=self.device)
 
-        self.to(DEVICE)
+        self.to(self.device)
+
+    def _resolve_device(self, device):
+        if device == 'auto':
+            return torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+        else:
+            return torch.device(device)
 
     def forward(self, x: torch.tensor, side: Player):
         batch_size, _, w, h = x.shape
-        sides = torch.ones((batch_size, 1, w, h), dtype=torch.float32, device=DEVICE)
+        sides = torch.ones((batch_size, 1, w, h), dtype=torch.float32, device=self.device)
 
         x = torch.cat((x, sides), dim=1)
         x = self.conv(x)
@@ -112,8 +119,8 @@ class AZResNet(nn.Module):
             return self.value_head_1(x), self.policy_head_1(x)
 
     def sample_actions(self, env: BaseEnv, side: Player):
-        states = torch.from_numpy(env.obs()).unsqueeze(0).to(DEVICE)
-        masks = torch.from_numpy(env.get_masks()).float().to(DEVICE)
+        states = torch.from_numpy(env.obs()).unsqueeze(0).to(self.device)
+        masks = torch.from_numpy(env.get_masks()).float().to(self.device)
 
         masks = masks.unsqueeze(0)
         with torch.no_grad():
