@@ -109,6 +109,7 @@ class AZResNet(nn.Module):
         super().to(device)
         self.log_Z_0 = self.log_Z_0.to(device)
         self.log_Z_1 = self.log_Z_1.to(device)
+        return self
 
     def forward(self, x: torch.tensor, side: Player):
         batch_size, _, w, h = x.shape
