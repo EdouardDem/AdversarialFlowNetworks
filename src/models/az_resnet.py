@@ -104,6 +104,11 @@ class AZResNet(nn.Module):
             return torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         else:
             return torch.device(device)
+        
+    def to(self, device):
+        super().to(device)
+        self.log_Z_0 = self.log_Z_0.to(device)
+        self.log_Z_1 = self.log_Z_1.to(device)
 
     def forward(self, x: torch.tensor, side: Player):
         batch_size, _, w, h = x.shape
