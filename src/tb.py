@@ -13,6 +13,29 @@ from src.eval import test_agent, UniformAgent
 DEVICE = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 
 
+@torch.no_grad()
+def check_model(model: nn.Module) -> None:
+    """Validate that all model parameters and buffers are finite.
+
+    Raises ``ValueError`` if any NaN / ±Inf values are found, listing the offending
+    tensors. Use after loading a checkpoint — a diverged run is not recoverable by
+    zeroing weights, so fail loudly and let the caller fall back to an earlier ckpt.
+    """
+    bad = []
+    for name, tensor in list(model.named_parameters()) + list(model.named_buffers()):
+        n_bad = int((~torch.isfinite(tensor)).sum().item())
+        if n_bad:
+            bad.append((name, n_bad, tensor.numel()))
+
+    if bad:
+        lines = [f"  {name}: {n}/{total} non-finite" for name, n, total in bad]
+        raise ValueError(
+            "Corrupted checkpoint — non-finite values in model weights:\n"
+            + "\n".join(lines)
+            + "\nLoad an earlier checkpoint instead."
+        )
+
+
 def compute_loss(afn: nn.Module, batch: tuple[torch.Tensor, ...]):
     states, masks, curr_players, actions, dones, log_reward = batch
     batch_size, traj_len, _, _, _ = states.shape
@@ -77,11 +100,38 @@ def train(
     buffer: TrajectoryBuffer,
     cfg: DictConfig,
 ):
-    # Setup checkpoints dir and path
-    run_dir = os.path.join(
-        cfg.ckpt_dir, wandb.run.id if wandb.run else wandb.util.generate_id()
-    )
-    if not os.path.exists(run_dir):
+    resume_from = cfg.get("resume_from", None)
+    start_step = 0
+
+    if resume_from:
+        print(f"Resuming from checkpoint: {resume_from}")
+        ckpt = torch.load(resume_from, map_location=DEVICE, weights_only=False)
+
+        if "model_state_dict" in ckpt:
+            model.load_state_dict(ckpt["model_state_dict"])
+        else:
+            # Legacy checkpoint: the full module was pickled under "model".
+            model.load_state_dict(ckpt["model"].state_dict())
+
+        if "optimizer_state_dict" in ckpt:
+            optimizer.load_state_dict(ckpt["optimizer_state_dict"])
+        else:
+            print("Legacy checkpoint: optimizer state not restored.")
+
+        if "step" in ckpt:
+            start_step = ckpt["step"] + 1
+        else:
+            # Recover from filename like ckpt-00015000.pt.
+            stem = os.path.splitext(os.path.basename(resume_from))[0]
+            start_step = int(stem.split("-")[-1]) + 1
+
+        check_model(model)
+
+        run_dir = os.path.dirname(os.path.abspath(resume_from))
+    else:
+        run_dir = os.path.join(
+            cfg.ckpt_dir, wandb.run.id if wandb.run else wandb.util.generate_id()
+        )
         os.makedirs(run_dir, exist_ok=True)
 
     print("Generating initial buffer")
@@ -93,7 +143,12 @@ def train(
         batch_size=cfg.buffer_batch_size,
     )
 
-    train_pbar = tqdm(range(cfg.total_steps), leave=False)
+    train_pbar = tqdm(
+        range(start_step, cfg.total_steps),
+        initial=start_step,
+        total=cfg.total_steps,
+        leave=False,
+    )
     train_pbar.set_description("Train")
     for step in train_pbar:
         # Train
@@ -119,7 +174,13 @@ def train(
 
             # Save the checkpoint
             last_ckpt_path = os.path.join(run_dir, f"ckpt-{step:08}.pt")
-            ckpt = {"env": env, "model": model}
+            ckpt = {
+                "env": env,
+                "model": model,
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "step": step,
+            }
             torch.save(ckpt, last_ckpt_path)
             print(f"Saved checkpoint at {last_ckpt_path}")
 

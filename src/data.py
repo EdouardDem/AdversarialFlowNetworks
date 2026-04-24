@@ -109,8 +109,18 @@ def gen_batch_traj_buffer(
             # TODO: Support UniformAgent to speed up initial data collection
             with torch.no_grad():
                 _, logits = afn(batch_obs, curr_player)
+                logits = torch.nan_to_num(logits, nan=0.0, posinf=1e4, neginf=-1e4)
                 masked_logits = batch_masks * logits + (1 - batch_masks) * (-1e9)
                 masked_probs = torch.nn.functional.softmax(masked_logits / 2, dim=1)
+
+                # Fall back to uniform-over-legal-actions if any row is degenerate.
+                bad_rows = ~torch.isfinite(masked_probs).all(dim=1) | (
+                    masked_probs.sum(dim=1) <= 0
+                )
+                if bad_rows.any():
+                    uniform = batch_masks / batch_masks.sum(dim=1, keepdim=True).clamp_min(1)
+                    masked_probs = torch.where(bad_rows.unsqueeze(1), uniform, masked_probs)
+
                 actions = masked_probs.multinomial(1)
 
             for action, curr_env, curr_traj in zip(actions, envs, trajs):
