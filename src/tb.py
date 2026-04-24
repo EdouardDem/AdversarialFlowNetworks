@@ -88,6 +88,8 @@ def train_afn(
     loss = compute_loss(afn, batch)
     loss.backward()
 
+    torch.nn.utils.clip_grad_norm_(afn.parameters(), max_norm=1.0)
+
     optimizer.step()
 
     return loss.item()
