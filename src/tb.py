@@ -180,9 +180,10 @@ def train(
                 "env": env,
                 "model": model,
                 "model_state_dict": model.state_dict(),
-                "optimizer_state_dict": optimizer.state_dict(),
                 "step": step,
             }
+            if cfg.get("save_optimizer_state", False):
+                ckpt["optimizer_state_dict"] = optimizer.state_dict()
             torch.save(ckpt, last_ckpt_path)
             print(f"Saved checkpoint at {last_ckpt_path}")
 
